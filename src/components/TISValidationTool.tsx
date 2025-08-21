@@ -11,6 +11,14 @@ const TISValidationTool: React.FC = () => {
   const DRAFT_KEY = 'tis-validation-draft';
   const { toasts, removeToast, showSuccess, showError } = useToast();
 
+  // Product Line options
+  const productLineOptions = [
+    '12', '13', '15', '24', '25', '45', '80', '1A', '1B', '1H', '3E', '4W', '8F', 
+    'AE', 'AV', 'BL', 'CM', 'CN', 'DI', 'DT', 'EG', 'GM', 'GM(EIP)', 'LB', 
+    'MMA', 'NA', 'NS', 'NT', 'QB', 'QW', 'QX', 'SP', 'TG', 'TJ', 'WN Kobe', 
+    'WN PMPS', 'WN Soco', 'WN TAO'
+  ];
+
   const [formData, setFormData] = useState<IFormData>({
     name: '',
     productLine: '',
@@ -35,9 +43,8 @@ const TISValidationTool: React.FC = () => {
 
   const validateProductLine = (value: string): IValidationResult => {
     if (!value) return { isValid: false, message: 'Product Line is required' };
-    if (value.length < 3) return { isValid: false, message: 'Product Line must be at least 3 characters' };
-    if (!/^[A-Z]{2,4}-[0-9]{2,4}$/.test(value)) return { isValid: false, message: 'Format: XX-99 (2-4 letters, dash, 2-4 numbers)' };
-    return { isValid: true, message: 'Valid product line format' };
+    if (!productLineOptions.includes(value)) return { isValid: false, message: 'Please select a valid product line from the dropdown' };
+    return { isValid: true, message: 'Valid product line selected' };
   };
 
   const validateERCode = (value: string): IValidationResult => {
@@ -92,7 +99,7 @@ const TISValidationTool: React.FC = () => {
     }
   }, [formData]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -239,7 +246,9 @@ const TISValidationTool: React.FC = () => {
               value={formData.productLine}
               onChange={handleInputChange}
               validation={validations.productLine}
-              placeholder="e.g., AB-1234"
+              placeholder="Select a product line"
+              type="select"
+              options={productLineOptions}
             />
 
             <ValidationField

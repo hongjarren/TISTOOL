@@ -6,10 +6,11 @@ interface ValidationFieldProps {
   label: string;
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   validation: IValidationResult;
   placeholder?: string;
-  type?: 'input' | 'textarea';
+  type?: 'input' | 'textarea' | 'select';
+  options?: string[];
 }
 
 const ValidationField: React.FC<ValidationFieldProps> = ({
@@ -19,7 +20,8 @@ const ValidationField: React.FC<ValidationFieldProps> = ({
   onChange,
   validation,
   placeholder,
-  type = 'input'
+  type = 'input',
+  options = []
 }) => {
   const getValidationIcon = () => {
     if (!value) return <AlertCircle className="w-5 h-5 text-gray-400" />;
@@ -56,6 +58,21 @@ const ValidationField: React.FC<ValidationFieldProps> = ({
             rows={4}
             className={getInputClass()}
           />
+        ) : type === 'select' ? (
+          <select
+            id={name}
+            name={name}
+            value={value}
+            onChange={onChange}
+            className={getInputClass()}
+          >
+            <option value="">{placeholder || 'Select an option'}</option>
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         ) : (
           <input
             type="text"

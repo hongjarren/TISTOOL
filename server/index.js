@@ -63,11 +63,14 @@ const formSubmissionSchema = new mongoose.Schema({
   productLine: {
     type: String,
     required: [true, 'Product Line is required'],
-    validate: {
-      validator: function(v) {
-        return /^[A-Z]{2,4}-[0-9]{2,4}$/.test(v);
-      },
-      message: 'Product Line format must be XX-99 (2-4 letters, dash, 2-4 numbers)'
+    enum: {
+      values: [
+        '12', '13', '15', '24', '25', '45', '80', '1A', '1B', '1H', '3E', '4W', '8F', 
+        'AE', 'AV', 'BL', 'CM', 'CN', 'DI', 'DT', 'EG', 'GM', 'GM(EIP)', 'LB', 
+        'MMA', 'NA', 'NS', 'NT', 'QB', 'QW', 'QX', 'SP', 'TG', 'TJ', 'WN Kobe', 
+        'WN PMPS', 'WN Soco', 'WN TAO'
+      ],
+      message: 'Please select a valid product line'
     }
   },
   erCode: {
