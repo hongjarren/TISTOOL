@@ -38,8 +38,8 @@ A modern, responsive form validation application built with React, TypeScript, a
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/tis-validation-tool.git
-   cd tis-validation-tool
+   git clone https://github.com/hongjarren/TISTOOL.git
+   cd TISTOOL
    ```
 
 2. **Install dependencies:**
@@ -144,7 +144,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🐛 Issues & Support
 
-If you encounter any issues or have questions, please [create an issue](https://github.com/YOUR_USERNAME/tis-validation-tool/issues) on GitHub.
+If you encounter any issues or have questions, please [create an issue](https://github.com/hongjarren/TISTOOL/issues) on GitHub.
 
 ## 📈 Future Enhancements
 
